@@ -111,7 +111,7 @@ subprojects{
 
     task sourceJar (type : Jar) {
         classifier = "sources"
-        from sourceSets.main.allSource//.include {it.name.endsWith("Facade")}
+        from sourceSets.main.allSource
     }
 
     task javadocJar (type: Jar, dependsOn: javadoc) {

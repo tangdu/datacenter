@@ -4,8 +4,6 @@
 
 datacenter-user
 
-datacenter-userfacade
-
 ##订单中心
 
 ##支付中心

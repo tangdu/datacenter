@@ -1,4 +1,4 @@
-apply plugin: "maven"
+apply plugin: "maven-publish"
 ext.set("generate_package", "cn.xnh.datacenter.user")
 version '1.0.1'
 
@@ -25,37 +25,52 @@ dependencies {
             "com.dangdang:elastic-job-lite-core:${elasticJob_version}",
             "com.dangdang:elastic-job-lite-spring:${elasticJob_version}",
     )
-    compile(
-            project(":datacenter-userfacade")
-    )
 }
 
+/********************************Facade打包**********************************************/
+def base_facade='cn/xnh/datacenter/user/facade';
+def facade_paths=["${base_facade}/ro/**","${base_facade}/service/**","${base_facade}/statecode/**"]
 task facadeJar(type: Jar) {
     archiveName = "${project.name}-${version}.jar".toString()
-    from('build/classes/java/main')
-    destinationDir = file('build/libs')
-    include('cn/xnh/datacenter/user/facade/ro/**.class')
-    include('cn/xnh/datacenter/user/facade/service/**.class')
-    include('cn/xnh/datacenter/user/facade/statecode/**.class')
+    from sourceSets.main.output
+    destinationDir  file('build/libs')
+    includes =facade_paths
+    manifest {
+        attributes(
+                "Manifest-Version": version,
+                "Created-By":System.getProperty("user.name"),
+                "Build-Jdk": "${sourceCompatibility}",
+                "Implementation-Title": project.name,
+                "Implementation-Version": version,
+                "Built-date":new Date().format('yyyy-MM-dd HH:mm:ss')
+        )
+    }
 }
 
-artifacts {
-    archives facadeJar
-    archives sourceJar
+task facadeSourceJar (type : Jar) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+    includes =facade_paths
 }
 
-uploadArchives {
-    //configuration = configurations.archives
+publishing {
+    publications {
+        api(MavenPublication) {
+            groupId group
+            artifactId "${projects.name}facade".toString()
+            version version
+
+            artifacts=[facadeJar,facadeSourceJar]
+        }
+    }
     repositories {
-        mavenDeployer {
-            repository(url: MAVEN_RELEASE_REPOURL) {
-                authentication(userName: "xnh", password: "xnh123")
-            }
-            pom.project {
-                groupId project.group
-                artifactId project.name
-                version project.version
+        maven {
+            url  MAVEN_RELEASE_REPOURL
+            credentials {
+                username = 'xnh'
+                password = 'xnh123'
             }
         }
     }
 }
+/********************************Facade打包**********************************************/
