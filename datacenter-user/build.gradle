@@ -1,0 +1,61 @@
+apply plugin: "maven"
+ext.set("generate_package", "cn.xnh.datacenter.user")
+version '1.0.1'
+
+dependencies {
+    compile("com.alibaba:dubbo:${dubbo_version}") {
+        exclude(group: "org.springframework")
+        exclude(group: "org.apache.curator")
+        exclude(group: "log4j")
+    }
+    compile("org.apache.zookeeper:zookeeper:${zookeeper_version}") {
+        exclude(group: "org.slf4j")
+    }
+    compile("com.101tec:zkclient:${zkclient_version}") {
+        exclude(group: "org.slf4j")
+    }
+    compile(
+            "mysql:mysql-connector-java",
+            "com.alibaba:druid-spring-boot-starter:${druid_version}"
+    )
+    compile(
+            "org.springframework.boot:spring-boot-starter-data-redis",
+            "org.mybatis.spring.boot:mybatis-spring-boot-starter:${springboot_mybatis_version}",
+            "com.github.pagehelper:pagehelper-spring-boot-starter:1.2.3",
+            "com.dangdang:elastic-job-lite-core:${elasticJob_version}",
+            "com.dangdang:elastic-job-lite-spring:${elasticJob_version}",
+    )
+    compile(
+            project(":datacenter-userfacade")
+    )
+}
+
+task facadeJar(type: Jar) {
+    archiveName = "${project.name}-${version}.jar".toString()
+    from('build/classes/java/main')
+    destinationDir = file('build/libs')
+    include('cn/xnh/datacenter/user/facade/ro/**.class')
+    include('cn/xnh/datacenter/user/facade/service/**.class')
+    include('cn/xnh/datacenter/user/facade/statecode/**.class')
+}
+
+artifacts {
+    archives facadeJar
+    archives sourceJar
+}
+
+uploadArchives {
+    //configuration = configurations.archives
+    repositories {
+        mavenDeployer {
+            repository(url: MAVEN_RELEASE_REPOURL) {
+                authentication(userName: "xnh", password: "xnh123")
+            }
+            pom.project {
+                groupId project.group
+                artifactId project.name
+                version project.version
+            }
+        }
+    }
+}

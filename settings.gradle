@@ -1,0 +1,13 @@
+rootProject.name = 'datacenter'
+include 'datacenter-user'
+include 'datacenter-trade'
+include 'datacenter-order'
+include 'datacenter-goods'
+include 'datacenter-pay'
+include 'datacenter-promotion'
+include 'datacenter-wallet'
+include 'datacenter-product'
+include 'datacenter-deploy'
+
+include 'datacenter-userfacade'
+

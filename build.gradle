@@ -1,0 +1,129 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springboot_version}"
+    }
+}
+
+
+
+subprojects{
+    apply plugin: "java"
+    apply plugin: 'org.springframework.boot'
+
+    group 'cn.xnh'
+    version '1.0.0'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        maven { url MAVEN_RELEASE_REPOURL }
+        mavenCentral()
+    }
+
+    ext{
+        generate_package=""
+    }
+
+    configurations {
+        mybatisGenerator
+        compile.exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+        compile.exclude group: "log4j"
+    }
+
+    dependencies {
+        compile(
+                "org.springframework.boot:spring-boot-starter",
+                "org.springframework.boot:spring-boot-starter-test",
+                "org.projectlombok:lombok:${lombok_version}",
+                "com.google.guava:guava:${guava_version}",
+                "junit:junit:${junit_version}",
+        )
+        compile(
+                "cn.luban:luban-commons:${luban_commons_version}",
+                "cn.luban:luban-plugin:${luban_plugin_version}",
+        )
+        mybatisGenerator "org.mybatis.generator:mybatis-generator-maven-plugin:${mybatis_generator_version}"
+        mybatisGenerator "cn.xnh.mybatis.generator:mybatis-generator-core:${mybatis_generator_version}"
+        mybatisGenerator "mysql:mysql-connector-java"
+    }
+
+    def relationPath="${projectDir.parent}/datacenter-deploy";
+    def getDbProperties = {
+        def properties = new Properties()
+        file("${relationPath}/src/main/resources/application.properties").withInputStream { inputStream ->
+            properties.load(inputStream)
+        }
+        properties
+    }
+
+
+    task mybatisGenerate << {
+        def properties = getDbProperties()
+        ant.properties['targetProject'] = projectDir.path
+        ant.properties['driverClass'] = 'com.mysql.jdbc.Driver'
+        ant.properties['connectionURL'] = properties.getProperty("spring.datasource.url")
+        ant.properties['userId'] = properties.getProperty("spring.datasource.username")
+        ant.properties['password'] = properties.getProperty("spring.datasource.password")
+        ant.properties['src_main_java'] = sourceSets.main.java.srcDirs[0].path
+        ant.properties['src_main_resources'] = sourceSets.main.resources.srcDirs[0].path
+        //ant.properties['src_main_java'] = "${projectDir}/src/main/java".toString()
+        //ant.properties['src_main_resources'] = "${projectDir}/src/main/resources".toString()
+
+        def generate_package_dir="${generate_package}"
+        if(generate_package_dir==''){
+            println "----->default_src未设置"
+            return ;
+        }
+        println "----->正在此目录:【${ant.properties['src_main_java']}】生成....相应包文件为【${generate_package_dir}】"
+        ant.properties['modelPackage'] ="${generate_package_dir}.model".toString()
+        ant.properties['mapperPackage'] ="${generate_package_dir}.mapper".toString()
+        ant.properties['sqlMapperPackage'] = 'mybatis'.toString()
+        ant.properties['servicePackage'] = "${generate_package_dir}.service".toString()
+        ant.properties['serviceImplPackage'] = "${generate_package_dir}.service.impl".toString()
+        ant.taskdef(
+                name: 'mbgenerator',
+                classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+                classpath: configurations.mybatisGenerator.asPath
+        )
+        ant.mbgenerator(overwrite: true,
+                configfile: "${ant.properties['src_main_resources']}/generatorConfig.xml", verbose: true) {
+            propertyset {
+                propertyref(name: 'targetProject')
+                propertyref(name: 'userId')
+                propertyref(name: 'driverClass')
+                propertyref(name: 'connectionURL')
+                propertyref(name: 'password')
+                propertyref(name: 'src_main_java')
+                propertyref(name: 'src_main_resources')
+                propertyref(name: 'modelPackage')
+                propertyref(name: 'mapperPackage')
+                propertyref(name: 'sqlMapperPackage')
+                propertyref(name: 'servicePackage')
+                propertyref(name: 'serviceImplPackage')
+            }
+        }
+    }
+
+    task sourceJar (type : Jar) {
+        classifier = "sources"
+        from sourceSets.main.allSource//.include {it.name.endsWith("Facade")}
+    }
+
+    task javadocJar (type: Jar, dependsOn: javadoc) {
+        classifier = "javadoc"
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourceJar
+    }
+
+    bootRepackage {
+        enabled =false
+    }
+}

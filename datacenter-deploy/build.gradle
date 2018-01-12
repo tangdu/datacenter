@@ -1,0 +1,20 @@
+apply plugin: "war"
+
+repositories {
+    maven { url "http://repo.orzass.com/nexus/content/repositories/releases/" }
+}
+
+dependencies {
+    compile(
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-starter-undertow",
+    )
+    compile(
+            project(":datacenter-user"),
+            project(":datacenter-trade"),
+            project(":datacenter-promotion"),
+            project(":datacenter-wallet"),
+            project(":datacenter-product"),
+            project(":datacenter-pay"),
+    )
+}
