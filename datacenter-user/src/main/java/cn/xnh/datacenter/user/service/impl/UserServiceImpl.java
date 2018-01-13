@@ -25,22 +25,27 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    @Override
     public UserDO queryById(Long id) {
         return this.userMapper.queryById(id);
     }
 
+    @Override
     public boolean deleteById(Long id) {
         if(this.userMapper.deleteById(id)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateByParams(UserDO record) {
         if(this.userMapper.updateByParams(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateById(UserDO record) {
         if(this.userMapper.updateById(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean add(UserDO record) {
         if(this.userMapper.add(record)>0){return true;}else{return false;}
     }

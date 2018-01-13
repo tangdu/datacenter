@@ -21,16 +21,16 @@ import org.springframework.stereotype.Service;
  */
 @Service("userFacade")
 public class UserFacadeImpl implements UserFacade {
-    private static final Logger LOGGER= LoggerFactory.getLogger(UserFacadeImpl.class);
+    private static final Logger LOGGER     = LoggerFactory.getLogger(UserFacadeImpl.class);
     @Autowired
     private UserService userService;
 
     @Override
     public Result<UserRO> queryUserById(Long userId) {
-        LOGGER.info("queryInfo",userId);
-        LOGGER.error("queryError",userId);
+        LOGGER.info("queryInfo", userId);
+        LOGGER.error("queryError", userId);
         UserDO user = userService.queryById(userId);
-        if(user!=null){
+        if (user != null) {
             UserRO userRO = ObjectUtils.copy(user, UserRO.class);
             return Results.success(userRO);
         }

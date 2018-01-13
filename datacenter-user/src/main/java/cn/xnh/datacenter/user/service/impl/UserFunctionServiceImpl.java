@@ -25,22 +25,27 @@ public class UserFunctionServiceImpl implements UserFunctionService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserFunctionServiceImpl.class);
 
+    @Override
     public UserFunctionDO queryById(Long id) {
         return this.userFunctionMapper.queryById(id);
     }
 
+    @Override
     public boolean deleteById(Long id) {
         if(this.userFunctionMapper.deleteById(id)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateByParams(UserFunctionDO record) {
         if(this.userFunctionMapper.updateByParams(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateById(UserFunctionDO record) {
         if(this.userFunctionMapper.updateById(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean add(UserFunctionDO record) {
         if(this.userFunctionMapper.add(record)>0){return true;}else{return false;}
     }

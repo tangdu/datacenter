@@ -25,22 +25,27 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserFavoriteServiceImpl.class);
 
+    @Override
     public UserFavoriteDO queryById(Long id) {
         return this.userFavoriteMapper.queryById(id);
     }
 
+    @Override
     public boolean deleteById(Long id) {
         if(this.userFavoriteMapper.deleteById(id)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateByParams(UserFavoriteDO record) {
         if(this.userFavoriteMapper.updateByParams(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateById(UserFavoriteDO record) {
         if(this.userFavoriteMapper.updateById(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean add(UserFavoriteDO record) {
         if(this.userFavoriteMapper.add(record)>0){return true;}else{return false;}
     }

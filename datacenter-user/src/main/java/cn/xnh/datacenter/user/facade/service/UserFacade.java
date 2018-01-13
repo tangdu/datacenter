@@ -13,6 +13,7 @@ public interface UserFacade {
 
     /**
      * 根据用户ID查询用户信息
+     *
      * @param userId 用户ID
      * @return
      */

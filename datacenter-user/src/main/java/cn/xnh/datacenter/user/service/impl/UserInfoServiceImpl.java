@@ -25,22 +25,27 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
+    @Override
     public UserInfoDO queryById(Long id) {
         return this.userInfoMapper.queryById(id);
     }
 
+    @Override
     public boolean deleteById(Long id) {
         if(this.userInfoMapper.deleteById(id)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateByParams(UserInfoDO record) {
         if(this.userInfoMapper.updateByParams(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateById(UserInfoDO record) {
         if(this.userInfoMapper.updateById(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean add(UserInfoDO record) {
         if(this.userInfoMapper.add(record)>0){return true;}else{return false;}
     }

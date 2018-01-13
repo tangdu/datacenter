@@ -24,23 +24,27 @@ public class UserCertificationServiceImpl implements UserCertificationService {
     private UserCertificationMapper userCertificationMapper;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserCertificationServiceImpl.class);
-
+    @Override
     public UserCertificationDO queryById(Long id) {
         return this.userCertificationMapper.queryById(id);
     }
 
+    @Override
     public boolean deleteById(Long id) {
         if(this.userCertificationMapper.deleteById(id)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateByParams(UserCertificationDO record) {
         if(this.userCertificationMapper.updateByParams(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateById(UserCertificationDO record) {
         if(this.userCertificationMapper.updateById(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean add(UserCertificationDO record) {
         if(this.userCertificationMapper.add(record)>0){return true;}else{return false;}
     }

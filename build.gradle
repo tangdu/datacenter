@@ -82,7 +82,7 @@ subprojects{
         println "----->正在此目录:【${ant.properties['src_main_java']}】生成....相应包文件为【${generate_package_dir}】"
         ant.properties['modelPackage'] ="${generate_package_dir}.model".toString()
         ant.properties['mapperPackage'] ="${generate_package_dir}.mapper".toString()
-        ant.properties['sqlMapperPackage'] = 'mybatis'.toString()
+        ant.properties['sqlMapperPackage'] = 'mybatis.user'.toString()
         ant.properties['servicePackage'] = "${generate_package_dir}.service".toString()
         ant.properties['serviceImplPackage'] = "${generate_package_dir}.service.impl".toString()
         ant.taskdef(

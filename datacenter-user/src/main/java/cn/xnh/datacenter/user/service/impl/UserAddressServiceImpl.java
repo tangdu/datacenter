@@ -25,22 +25,27 @@ public class UserAddressServiceImpl implements UserAddressService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserAddressServiceImpl.class);
 
+    @Override
     public UserAddressDO queryById(Long id) {
         return this.userAddressMapper.queryById(id);
     }
 
+    @Override
     public boolean deleteById(Long id) {
         if(this.userAddressMapper.deleteById(id)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateByParams(UserAddressDO record) {
         if(this.userAddressMapper.updateByParams(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean updateById(UserAddressDO record) {
         if(this.userAddressMapper.updateById(record)>0){return true;}else{return false;}
     }
 
+    @Override
     public boolean add(UserAddressDO record) {
         if(this.userAddressMapper.add(record)>0){return true;}else{return false;}
     }

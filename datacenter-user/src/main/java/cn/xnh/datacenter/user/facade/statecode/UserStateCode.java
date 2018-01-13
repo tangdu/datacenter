@@ -10,5 +10,5 @@ import cn.luban.commons.result.StateCode;
  */
 public class UserStateCode {
 
-   public static StateCode USER_NOT_FOUND=new StateCode(-200,"用户数据对象不存在");
+    public static StateCode USER_NOT_FOUND = new StateCode(-200, "用户数据对象不存在");
 }
