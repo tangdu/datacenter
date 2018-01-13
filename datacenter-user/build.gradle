@@ -57,7 +57,7 @@ publishing {
     publications {
         api(MavenPublication) {
             groupId group
-            artifactId "${projects.name}facade".toString()
+            artifactId "${project.name}facade".toString()
             version version
 
             artifacts=[facadeJar,facadeSourceJar]
