@@ -8,11 +8,22 @@ buildscript {
     }
 }
 
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5"
+    }
+}
 
 
 subprojects{
     apply plugin: "java"
     apply plugin: 'org.springframework.boot'
+    apply plugin: "org.sonarqube"
 
     group 'cn.xnh'
     version '1.0.0'
@@ -106,6 +117,16 @@ subprojects{
                 propertyref(name: 'servicePackage')
                 propertyref(name: 'serviceImplPackage')
             }
+        }
+    }
+
+    sonarqube{
+        properties{
+            property "sonar.host.url", "http://sonar.server.com:9000/"
+            property "sonar.jdbc.url", "jdbc:mysql://sonar.mysql.com:3306/sonar?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true"
+            property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+            property "sonar.jdbc.username", "sonar"
+            property "sonar.jdbc.password", "#sonaR023"
         }
     }
 
