@@ -143,8 +143,4 @@ subprojects{
     artifacts {
         archives sourceJar
     }
-
-    bootRepackage {
-        enabled =false
-    }
 }
