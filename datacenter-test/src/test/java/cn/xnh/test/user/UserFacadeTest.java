@@ -2,9 +2,9 @@ package cn.xnh.test.user;
 
 import cn.luban.commons.result.Result;
 import cn.luban.commons.ro.PageData;
-import cn.xnh.datacenter.user.facade.ro.UserRO;
-import cn.xnh.datacenter.user.facade.ro.query.UserPageQueryRO;
 import cn.xnh.datacenter.user.facade.service.UserFacade;
+import cn.xnh.datacenter.user.model.UserDO;
+import cn.xnh.datacenter.user.model.user.UserPageQueryDO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ public class UserFacadeTest {
 
     @Test
     public void 测试查询(){
-        Result<UserRO> userROResult = userFacade.queryUserById(2L);
+        Result<UserDO> userROResult = userFacade.queryUserById(2L);
         System.out.println(userROResult);
         Assert.assertTrue(userROResult.isSuccess());
         Assert.assertEquals(java.util.Optional.of(2L),java.util.Optional.of(userROResult.getData().getId()));
@@ -37,7 +37,7 @@ public class UserFacadeTest {
 
     @Test
     public void 测试添加(){
-        UserRO userRO=new UserRO();
+        UserDO userRO=new UserDO();
         userRO.setMobilePhone(18516280229L);
         userRO.setOpenidWeixin("2222");
         userRO.setEmail("tangdu.lai.com");
@@ -54,8 +54,8 @@ public class UserFacadeTest {
 
     @Test
     public void 测试分页(){
-        UserPageQueryRO userPageQueryRO=new UserPageQueryRO();
-        Result<PageData<UserRO>> pageDataResult = userFacade.pageQueryUser(userPageQueryRO);
+        UserPageQueryDO userPageQueryRO=new UserPageQueryDO();
+        Result<PageData<UserDO>> pageDataResult = userFacade.pageQueryUser(userPageQueryRO);
         Assert.assertTrue(pageDataResult.isSuccess());
         System.out.println(pageDataResult);
     }

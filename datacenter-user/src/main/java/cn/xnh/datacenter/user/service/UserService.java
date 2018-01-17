@@ -5,11 +5,15 @@
 package cn.xnh.datacenter.user.service;
 
 import cn.luban.commons.ro.PageData;
-import cn.xnh.datacenter.user.facade.ro.query.UserPageQueryRO;
 import cn.xnh.datacenter.user.model.UserDO;
+import cn.xnh.datacenter.user.model.user.UserDelBatDO;
+import cn.xnh.datacenter.user.model.user.UserDelDO;
+import cn.xnh.datacenter.user.model.user.UserPageQueryDO;
 
 public interface UserService {
-    boolean deleteById(Long id);
+    boolean deleteById(UserDelDO userDelDO);
+
+    boolean batchDeleteUserById(UserDelBatDO userDelBatDO);
 
     UserDO queryById(Long id);
 
@@ -19,5 +23,5 @@ public interface UserService {
 
     boolean updateById(UserDO record);
 
-    PageData<UserDO> pageQuery(UserPageQueryRO userPageQueryRO);
+    PageData<UserDO> pageQuery(UserPageQueryDO userPageQueryDO);
 }

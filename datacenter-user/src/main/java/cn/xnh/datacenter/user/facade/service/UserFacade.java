@@ -2,8 +2,10 @@ package cn.xnh.datacenter.user.facade.service;
 
 import cn.luban.commons.result.Result;
 import cn.luban.commons.ro.PageData;
-import cn.xnh.datacenter.user.facade.ro.UserRO;
-import cn.xnh.datacenter.user.facade.ro.query.UserPageQueryRO;
+import cn.xnh.datacenter.user.model.UserDO;
+import cn.xnh.datacenter.user.model.user.UserDelBatDO;
+import cn.xnh.datacenter.user.model.user.UserDelDO;
+import cn.xnh.datacenter.user.model.user.UserPageQueryDO;
 
 /**
  * 用户基础服务提供方
@@ -19,37 +21,45 @@ public interface UserFacade {
      * @param userId 用户ID
      * @return
      */
-    Result<UserRO> queryUserById(Long userId);
+    Result<UserDO> queryUserById(Long userId);
 
     /**
      * 根据用户ID删除用户信息
      *
-     * @param userId 用户ID
+     * @param userDelDO 用户删除对象
      * @return
      */
-    Result<Boolean> deleteUserById(Long userId);
+    Result<Boolean> deleteUserById(UserDelDO userDelDO);
+
+    /**
+     * 根据用户ID批量删除用户信息
+     *
+     * @param userDelBatDO 用户删除对象
+     * @return
+     */
+    Result<Boolean> batchDeleteUserById(UserDelBatDO userDelBatDO);
 
     /**
      * 添加用户信息
      *
-     * @param userRO 用户信息
+     * @param userDO 用户信息
      * @return 返回用户ID
      */
-    Result<Long> addUser(UserRO userRO);
+    Result<Long> addUser(UserDO userDO);
 
     /**
      * 更新用户信息
      *
-     * @param userRO 用户信息
+     * @param userDO 用户信息
      * @return 返回成功标志
      */
-    Result<Boolean> updateUser(UserRO userRO);
+    Result<Boolean> updateUser(UserDO userDO);
 
     /**
      * 分页查询用户信息
      *
-     * @param userPageQueryRO 分页查询用户对象
+     * @param userPageQueryDO 分页查询用户对象
      * @return
      */
-    Result<PageData<UserRO>> pageQueryUser(UserPageQueryRO userPageQueryRO);
+    Result<PageData<UserDO>> pageQueryUser(UserPageQueryDO userPageQueryDO);
 }

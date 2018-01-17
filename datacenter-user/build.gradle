@@ -28,8 +28,11 @@ dependencies {
 }
 
 /********************************Facade打包**********************************************/
-def base_facade='cn/xnh/datacenter/user/facade';
-def facade_paths=["${base_facade}/ro/**","${base_facade}/service/**","${base_facade}/statecode/**"]
+def base_facade='cn/xnh/datacenter/user';
+def facade_paths=[
+        "${base_facade}/model/**",
+        "${base_facade}/facade/service/**",
+        "${base_facade}/facade/statecode/**"]
 task facadeJar(type: Jar) {
     archiveName = "${project.name}-${version}.jar".toString()
     from sourceSets.main.output
