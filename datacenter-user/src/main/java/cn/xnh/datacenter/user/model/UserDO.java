@@ -6,9 +6,10 @@ package cn.xnh.datacenter.user.model;
 
 import cn.luban.commons.model.BaseDO;
 import com.alibaba.fastjson.JSON;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 
 /**
  * (t_user)
@@ -26,7 +27,7 @@ public class UserDO extends BaseDO {
     private Integer isDelete;
 
     /**手机，同时作为登陆id**/
-    private Integer mobilePhone;
+    private Long mobilePhone;
 
     /**用户邮箱**/
     private String email;

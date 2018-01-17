@@ -10,7 +10,7 @@ import com.github.pagehelper.Page;
 public interface UserInfoMapper {
     int deleteById(Long id);
 
-    int add(UserInfoDO record);
+    long add(UserInfoDO record);
 
     UserInfoDO queryById(Long id);
 

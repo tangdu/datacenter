@@ -1,6 +1,5 @@
 package cn.xnh.datacenter.user.facade.ro;
 
-import com.alibaba.fastjson.JSON;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,7 +18,7 @@ public class UserRO implements Serializable {
     private Long id;
 
     /**手机，同时作为登陆id**/
-    private Integer mobilePhone;
+    private Long mobilePhone;
 
     /**用户邮箱**/
     private String email;
@@ -39,8 +38,16 @@ public class UserRO implements Serializable {
     /**实名认证情况 0 未认证 1 个人 2 企业**/
     private Integer certification;
 
-    @Override
-    public String toString() {
-        return JSON.toJSONString(this);
-    }
+    /** 创建时间 */
+    private Date createTime;
+
+    /** 创建人 */
+    private String createPerson;
+
+    /** 修改时间 */
+    private Date updateTime;
+
+    /** 更新人 */
+    private String updatePerson;
+
 }

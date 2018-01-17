@@ -47,12 +47,15 @@ subprojects{
     }
 
     dependencies {
+        testCompile("org.springframework.boot:spring-boot-starter-test")
         compile(
                 "org.springframework.boot:spring-boot-starter",
-                "org.springframework.boot:spring-boot-starter-test",
                 "org.projectlombok:lombok:${lombok_version}",
                 "com.google.guava:guava:${guava_version}",
                 "junit:junit:${junit_version}",
+        )
+        compile(
+                "org.springframework.boot:spring-boot-starter-undertow",
         )
         compile(
                 "cn.luban:luban-commons:${luban_commons_version}",

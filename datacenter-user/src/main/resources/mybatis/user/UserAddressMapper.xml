@@ -55,13 +55,12 @@
     select  <include refid="Base_Column_List" /> from t_user_address
     where id = #{id}
   </select>
-  
-  
-  <!--根据参数分页查询-->
-  <select id="queryPage" resultMap="BaseResultMap">
+
+  <!--根据用户ID用户保存的地址查询-->
+  <select id="queryByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select  <include refid="Base_Column_List" /> from t_user_address
+    where t_user_id = #{userId}
   </select>
-  
   
   <!--根据ID更新-->
   <update id="updateById" parameterType="cn.xnh.datacenter.user.model.UserAddressDO">

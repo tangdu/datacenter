@@ -11,7 +11,7 @@ public interface UserFunctionService {
 
     UserFunctionDO queryById(Long id);
 
-    boolean add(UserFunctionDO record);
+    long add(UserFunctionDO record);
 
     boolean updateByParams(UserFunctionDO record);
 

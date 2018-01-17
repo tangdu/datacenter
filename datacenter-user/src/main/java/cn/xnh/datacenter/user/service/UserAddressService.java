@@ -11,7 +11,7 @@ public interface UserAddressService {
 
     UserAddressDO queryById(Long id);
 
-    boolean add(UserAddressDO record);
+    long add(UserAddressDO record);
 
     boolean updateByParams(UserAddressDO record);
 

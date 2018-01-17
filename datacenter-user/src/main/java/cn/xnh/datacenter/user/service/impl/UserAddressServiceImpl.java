@@ -1,7 +1,7 @@
 /**
-* xnh.com Inc.
-* Copyright (c) 2017-2018 All Rights Reserved.
-*/
+ * xnh.com Inc.
+ * Copyright (c) 2017-2018 All Rights Reserved.
+ */
 package cn.xnh.datacenter.user.service.impl;
 
 import cn.xnh.datacenter.user.mapper.UserAddressMapper;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 服务实现方
- * 
+ *
  * @author tangdu
  * @version $: UserAddressServiceImpl.java, v 0.1 2018年01月12日 下午13:10 tangdu Exp $ 
  */
@@ -32,21 +32,21 @@ public class UserAddressServiceImpl implements UserAddressService {
 
     @Override
     public boolean deleteById(Long id) {
-        if(this.userAddressMapper.deleteById(id)>0){return true;}else{return false;}
+        return this.userAddressMapper.deleteById(id) > 0;
     }
 
     @Override
     public boolean updateByParams(UserAddressDO record) {
-        if(this.userAddressMapper.updateByParams(record)>0){return true;}else{return false;}
+        return this.userAddressMapper.updateByParams(record)>0;
     }
 
     @Override
     public boolean updateById(UserAddressDO record) {
-        if(this.userAddressMapper.updateById(record)>0){return true;}else{return false;}
+        return this.userAddressMapper.updateById(record) > 0;
     }
 
     @Override
-    public boolean add(UserAddressDO record) {
-        if(this.userAddressMapper.add(record)>0){return true;}else{return false;}
+    public long add(UserAddressDO record) {
+        return this.userAddressMapper.add(record);
     }
 }

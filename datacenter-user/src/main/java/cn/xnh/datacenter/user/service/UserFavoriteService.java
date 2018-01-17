@@ -11,7 +11,7 @@ public interface UserFavoriteService {
 
     UserFavoriteDO queryById(Long id);
 
-    boolean add(UserFavoriteDO record);
+    long add(UserFavoriteDO record);
 
     boolean updateByParams(UserFavoriteDO record);
 

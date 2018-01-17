@@ -11,7 +11,7 @@ public interface UserInfoService {
 
     UserInfoDO queryById(Long id);
 
-    boolean add(UserInfoDO record);
+    long add(UserInfoDO record);
 
     boolean updateByParams(UserInfoDO record);
 

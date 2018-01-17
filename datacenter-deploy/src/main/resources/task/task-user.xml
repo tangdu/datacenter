@@ -12,5 +12,5 @@
                         ">
     <reg:zookeeper id="regCenter" server-lists="${spring.dubbo.registry.address}" namespace="dd-job" base-sleep-time-milliseconds="1000" max-sleep-time-milliseconds="3000" max-retries="3" />
 
-    <job:simple id="userOverEventJob" class="cn.xnh.datacenter.user.task.UserOverEventJob" registry-center-ref="regCenter" cron="0/30 * * * * ?"   sharding-total-count="1" />
+    <!--<job:simple id="userOverEventJob" class="cn.xnh.datacenter.user.task.UserOverEventJob" registry-center-ref="regCenter" cron="00 00 10 * * ?"   sharding-total-count="1" />-->
 </beans>

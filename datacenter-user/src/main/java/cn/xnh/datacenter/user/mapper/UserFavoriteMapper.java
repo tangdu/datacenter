@@ -10,7 +10,7 @@ import com.github.pagehelper.Page;
 public interface UserFavoriteMapper {
     int deleteById(Long id);
 
-    int add(UserFavoriteDO record);
+    long add(UserFavoriteDO record);
 
     UserFavoriteDO queryById(Long id);
 

@@ -11,7 +11,7 @@ public interface UserCertificationService {
 
     UserCertificationDO queryById(Long id);
 
-    boolean add(UserCertificationDO record);
+    long add(UserCertificationDO record);
 
     boolean updateByParams(UserCertificationDO record);
 

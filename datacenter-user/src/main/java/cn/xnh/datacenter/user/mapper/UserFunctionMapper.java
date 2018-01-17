@@ -10,7 +10,7 @@ import com.github.pagehelper.Page;
 public interface UserFunctionMapper {
     int deleteById(Long id);
 
-    int add(UserFunctionDO record);
+    long add(UserFunctionDO record);
 
     UserFunctionDO queryById(Long id);
 

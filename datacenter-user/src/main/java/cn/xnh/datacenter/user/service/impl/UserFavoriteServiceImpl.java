@@ -1,7 +1,7 @@
 /**
-* xnh.com Inc.
-* Copyright (c) 2017-2018 All Rights Reserved.
-*/
+ * xnh.com Inc.
+ * Copyright (c) 2017-2018 All Rights Reserved.
+ */
 package cn.xnh.datacenter.user.service.impl;
 
 import cn.xnh.datacenter.user.mapper.UserFavoriteMapper;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 服务实现方
- * 
+ *
  * @author tangdu
  * @version $: UserFavoriteServiceImpl.java, v 0.1 2018年01月12日 下午13:10 tangdu Exp $ 
  */
@@ -32,21 +32,21 @@ public class UserFavoriteServiceImpl implements UserFavoriteService {
 
     @Override
     public boolean deleteById(Long id) {
-        if(this.userFavoriteMapper.deleteById(id)>0){return true;}else{return false;}
+        return this.userFavoriteMapper.deleteById(id) > 0;
     }
 
     @Override
     public boolean updateByParams(UserFavoriteDO record) {
-        if(this.userFavoriteMapper.updateByParams(record)>0){return true;}else{return false;}
+       return this.userFavoriteMapper.updateByParams(record) > 0;
     }
 
     @Override
     public boolean updateById(UserFavoriteDO record) {
-        if(this.userFavoriteMapper.updateById(record)>0){return true;}else{return false;}
+        return this.userFavoriteMapper.updateById(record) > 0;
     }
 
     @Override
-    public boolean add(UserFavoriteDO record) {
-        if(this.userFavoriteMapper.add(record)>0){return true;}else{return false;}
+    public long add(UserFavoriteDO record) {
+        return this.userFavoriteMapper.add(record);
     }
 }

@@ -1,7 +1,7 @@
 /**
-* xnh.com Inc.
-* Copyright (c) 2017-2018 All Rights Reserved.
-*/
+ * xnh.com Inc.
+ * Copyright (c) 2017-2018 All Rights Reserved.
+ */
 package cn.xnh.datacenter.user.service.impl;
 
 import cn.xnh.datacenter.user.mapper.UserFunctionMapper;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 服务实现方
- * 
+ *
  * @author tangdu
  * @version $: UserFunctionServiceImpl.java, v 0.1 2018年01月12日 下午13:10 tangdu Exp $ 
  */
@@ -32,21 +32,21 @@ public class UserFunctionServiceImpl implements UserFunctionService {
 
     @Override
     public boolean deleteById(Long id) {
-        if(this.userFunctionMapper.deleteById(id)>0){return true;}else{return false;}
+        return this.userFunctionMapper.deleteById(id) > 0;
     }
 
     @Override
     public boolean updateByParams(UserFunctionDO record) {
-        if(this.userFunctionMapper.updateByParams(record)>0){return true;}else{return false;}
+        return this.userFunctionMapper.updateByParams(record) > 0;
     }
 
     @Override
     public boolean updateById(UserFunctionDO record) {
-        if(this.userFunctionMapper.updateById(record)>0){return true;}else{return false;}
+        return this.userFunctionMapper.updateById(record) > 0;
     }
 
     @Override
-    public boolean add(UserFunctionDO record) {
-        if(this.userFunctionMapper.add(record)>0){return true;}else{return false;}
+    public long add(UserFunctionDO record) {
+        return this.userFunctionMapper.add(record);
     }
 }

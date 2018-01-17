@@ -22,7 +22,7 @@ public class UserOverEventJob implements SimpleJob {
 
     @Override
     public void execute(ShardingContext shardingContext) {
-        userMapper.deleteById(1L);
+        userMapper.queryById(1L);
         LOGGER.info("execute UserOverEventJob");
     }
 }

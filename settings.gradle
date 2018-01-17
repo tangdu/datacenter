@@ -6,4 +6,5 @@ include 'datacenter-promotion'
 include 'datacenter-wallet'
 include 'datacenter-product'
 include 'datacenter-deploy'
+include 'datacenter-test'
 

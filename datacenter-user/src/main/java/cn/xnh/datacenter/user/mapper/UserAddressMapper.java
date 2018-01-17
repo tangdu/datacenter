@@ -5,16 +5,17 @@
 package cn.xnh.datacenter.user.mapper;
 
 import cn.xnh.datacenter.user.model.UserAddressDO;
-import com.github.pagehelper.Page;
+
+import java.util.List;
 
 public interface UserAddressMapper {
     int deleteById(Long id);
 
-    int add(UserAddressDO record);
+    long add(UserAddressDO record);
 
     UserAddressDO queryById(Long id);
 
-    Page<UserAddressDO> queryPage();
+    List<UserAddressDO> queryByUserId(Long userId);
 
     int updateById(UserAddressDO record);
 

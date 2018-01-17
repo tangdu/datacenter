@@ -10,7 +10,7 @@ import com.github.pagehelper.Page;
 public interface UserCertificationMapper {
     int deleteById(Long id);
 
-    int add(UserCertificationDO record);
+    long add(UserCertificationDO record);
 
     UserCertificationDO queryById(Long id);
 

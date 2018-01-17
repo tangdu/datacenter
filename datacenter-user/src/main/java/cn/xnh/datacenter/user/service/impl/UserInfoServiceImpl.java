@@ -1,7 +1,7 @@
 /**
-* xnh.com Inc.
-* Copyright (c) 2017-2018 All Rights Reserved.
-*/
+ * xnh.com Inc.
+ * Copyright (c) 2017-2018 All Rights Reserved.
+ */
 package cn.xnh.datacenter.user.service.impl;
 
 import cn.xnh.datacenter.user.mapper.UserInfoMapper;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 服务实现方
- * 
+ *
  * @author tangdu
  * @version $: UserInfoServiceImpl.java, v 0.1 2018年01月12日 下午13:10 tangdu Exp $ 
  */
@@ -32,21 +32,21 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public boolean deleteById(Long id) {
-        if(this.userInfoMapper.deleteById(id)>0){return true;}else{return false;}
+        return this.userInfoMapper.deleteById(id) > 0;
     }
 
     @Override
     public boolean updateByParams(UserInfoDO record) {
-        if(this.userInfoMapper.updateByParams(record)>0){return true;}else{return false;}
+        return this.userInfoMapper.updateByParams(record) > 0;
     }
 
     @Override
     public boolean updateById(UserInfoDO record) {
-        if(this.userInfoMapper.updateById(record)>0){return true;}else{return false;}
+        return this.userInfoMapper.updateById(record) > 0;
     }
 
     @Override
-    public boolean add(UserInfoDO record) {
-        if(this.userInfoMapper.add(record)>0){return true;}else{return false;}
+    public long add(UserInfoDO record) {
+        return this.userInfoMapper.add(record);
     }
 }
