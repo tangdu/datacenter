@@ -13,7 +13,7 @@ import cn.xnh.datacenter.user.model.user.UserPageQueryDO;
 public interface UserService {
     boolean deleteById(UserDelDO userDelDO);
 
-    boolean batchDeleteUserById(UserDelBatDO userDelBatDO);
+    boolean batchDeleteById(UserDelBatDO userDelBatDO);
 
     UserDO queryById(Long id);
 

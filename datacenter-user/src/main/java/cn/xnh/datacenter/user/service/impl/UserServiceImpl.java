@@ -70,8 +70,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean batchDeleteUserById(UserDelBatDO userDelBatDO) {
-        boolean flag = this.userMapper.batchDeleteUserById(userDelBatDO) == userDelBatDO.getIds().size();
+    public boolean batchDeleteById(UserDelBatDO userDelBatDO) {
+        boolean flag = this.userMapper.batchDeleteById(userDelBatDO) == userDelBatDO.getIds().size();
         if (flag) {
             cleanCache(userDelBatDO.getIds());
         }

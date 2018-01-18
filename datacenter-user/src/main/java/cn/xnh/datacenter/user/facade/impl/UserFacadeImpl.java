@@ -47,7 +47,7 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public Result<Boolean> batchDeleteUserById(UserDelBatDO userDelBatDO) {
         ValidateTools.validate(userDelBatDO);
-        return Results.success(userService.batchDeleteUserById(userDelBatDO));
+        return Results.success(userService.batchDeleteById(userDelBatDO));
     }
 
     @Override

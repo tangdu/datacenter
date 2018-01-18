@@ -38,6 +38,7 @@ subprojects{
 
     ext{
         generate_package=""
+        model_prefix=""
     }
 
     configurations {
@@ -62,7 +63,7 @@ subprojects{
                 "cn.luban:luban-plugin:${luban_plugin_version}",
         )
         mybatisGenerator "org.mybatis.generator:mybatis-generator-maven-plugin:${mybatis_generator_version}"
-        mybatisGenerator "cn.xnh.mybatis.generator:mybatis-generator-core:${mybatis_generator_version}"
+        mybatisGenerator "cn.tdu.generator:mybatis-generator-core:${mybatis_generator_version}"
         mybatisGenerator "mysql:mysql-connector-java"
     }
 
@@ -90,15 +91,25 @@ subprojects{
 
         def generate_package_dir="${generate_package}"
         if(generate_package_dir==''){
-            println "----->default_src未设置"
+            println "#######default_src未设置"
             return ;
         }
-        println "----->正在此目录:【${ant.properties['src_main_java']}】生成....相应包文件为【${generate_package_dir}】"
-        ant.properties['modelPackage'] ="${generate_package_dir}.model".toString()
+        def modelPackage="${generate_package_dir}.model";
+        if("${model_prefix}"!=''){
+            modelPackage="${generate_package_dir}.model.${model_prefix}"
+        }
+        println """----->正在此目录:【${ant.properties['src_main_java']}】----->
+                         此包路径为:【${generate_package_dir}】
+                         模型路径为:【${modelPackage}】
+                """
+        ant.properties['modelPackage'] ="${modelPackage}".toString()
         ant.properties['mapperPackage'] ="${generate_package_dir}.mapper".toString()
         ant.properties['sqlMapperPackage'] = 'mybatis.user'.toString()
         ant.properties['servicePackage'] = "${generate_package_dir}.service".toString()
         ant.properties['serviceImplPackage'] = "${generate_package_dir}.service.impl".toString()
+        ant.properties['facadePackage'] = "${generate_package_dir}.facade.service".toString()
+        ant.properties['facadeImplPackage'] = "${generate_package_dir}.facade.impl".toString()
+        ant.properties['stateCodePackage'] = "${generate_package_dir}.facade.statecode".toString()
         ant.taskdef(
                 name: 'mbgenerator',
                 classname: 'org.mybatis.generator.ant.GeneratorAntTask',
@@ -119,6 +130,9 @@ subprojects{
                 propertyref(name: 'sqlMapperPackage')
                 propertyref(name: 'servicePackage')
                 propertyref(name: 'serviceImplPackage')
+                propertyref(name: 'facadePackage')
+                propertyref(name: 'facadeImplPackage')
+                propertyref(name: 'stateCodePackage')
             }
         }
     }

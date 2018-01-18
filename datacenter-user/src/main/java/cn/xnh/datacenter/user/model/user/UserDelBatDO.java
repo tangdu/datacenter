@@ -14,9 +14,9 @@ import java.util.List;
  */
 @Data
 public class UserDelBatDO implements Serializable {
-    @Validate(required = true)
+    @Validate(minLength = 1)
     private List<Long> ids;
 
-    @Validate(minLength = 1)
+    @Validate(isNotBlank = true)
     private String     updatePerson;
 }

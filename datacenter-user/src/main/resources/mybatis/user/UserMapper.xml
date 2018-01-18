@@ -34,7 +34,7 @@
   </delete>
 
     <!--根据ID批量删除-->
-    <delete id="batchDeleteUserById" parameterType="cn.xnh.datacenter.user.model.user.UserDelBatDO">
+    <delete id="batchDeleteById" parameterType="cn.xnh.datacenter.user.model.user.UserDelBatDO">
         update t_user set is_delete=1,update_time=now(),update_person=#{updatePerson}
         <where>
             id in
@@ -64,7 +64,7 @@
         select
         <include refid="Base_Column_List"/>
         from t_user
-        where id = #{id}
+        where is_delete =0 and id = #{id}
     </select>
 
 
@@ -72,7 +72,13 @@
     <select id="queryPage" resultMap="BaseResultMap" parameterType="cn.xnh.datacenter.user.model.user.UserPageQueryDO">
         select
         <include refid="Base_Column_List"/>
-        from t_user order by create_time desc
+        from t_user
+        <where>
+            is_delete =0
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
     </select>
 
 

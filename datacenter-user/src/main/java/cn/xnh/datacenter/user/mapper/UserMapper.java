@@ -11,9 +11,10 @@ import cn.xnh.datacenter.user.model.user.UserPageQueryDO;
 import com.github.pagehelper.Page;
 
 public interface UserMapper {
+
     int deleteById(UserDelDO userDelDO);
 
-    int batchDeleteUserById(UserDelBatDO userDelBatDO);
+    int batchDeleteById(UserDelBatDO userDelBatDO);
 
     int add(UserDO record);
 

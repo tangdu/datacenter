@@ -7,10 +7,12 @@
 
         <plugin type="org.mybatis.generator.plugins.JSONToStringPlugin" />
         <plugin type="org.mybatis.generator.plugins.MybatisServicePlugin" />
+        <plugin type="org.mybatis.generator.plugins.MybatisFacadePlugin" />
 
         <commentGenerator type="org.mybatis.generator.internal.TangCommentGenerator">
             <property name="suppressDate" value="true"></property>
             <property name="javaFileEncoding" value="utf-8"/>
+            <property name="useInformationSchema" value="true"></property>
         </commentGenerator>
 
         <jdbcConnection driverClass="${driverClass}"
@@ -48,9 +50,13 @@
                               targetProject="${src_main_java}"
         ></javaServiceGenerator>
 
-        <!-- sql占位符，表示所有的表 -->
+        <javaFacadeGenerator targetPackage="${facadePackage}"
+                             implementationPackage="${facadeImplPackage}"
+                             targetProject="${src_main_java}"
+                             stateCodePackage="${stateCodePackage}"
+        ></javaFacadeGenerator>
 
-        <table tableName="%">
+        <table tableName="t_user_favorite">
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
             <domainObjectRenamingRule searchString="^T" replaceString="" />
         </table>

@@ -14,6 +14,7 @@ import lombok.Setter;
 @Getter
 public class UserPageQueryDO extends PageQuery {
 
-    /** 用户名称 **/
-    private String name;
+    /** 用户状态 **/
+    private Integer status;
+
 }

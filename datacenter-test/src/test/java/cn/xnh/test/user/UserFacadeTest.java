@@ -4,6 +4,7 @@ import cn.luban.commons.result.Result;
 import cn.luban.commons.ro.PageData;
 import cn.xnh.datacenter.user.facade.service.UserFacade;
 import cn.xnh.datacenter.user.model.UserDO;
+import cn.xnh.datacenter.user.model.user.UserDelDO;
 import cn.xnh.datacenter.user.model.user.UserPageQueryDO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -55,9 +56,20 @@ public class UserFacadeTest {
     @Test
     public void 测试分页(){
         UserPageQueryDO userPageQueryRO=new UserPageQueryDO();
+        userPageQueryRO.setStatus(1);
         Result<PageData<UserDO>> pageDataResult = userFacade.pageQueryUser(userPageQueryRO);
-        Assert.assertTrue(pageDataResult.isSuccess());
         System.out.println(pageDataResult);
+        Assert.assertTrue(pageDataResult.isSuccess());
+
+    }
+
+    @Test
+    public void 测试批量删除(){
+        UserDelDO userDelDO=new UserDelDO();
+        Result<Boolean> result = userFacade.deleteUserById(userDelDO);
+        System.out.println(result);
+        Assert.assertTrue(result.isSuccess());
+        Assert.assertTrue(result.getData());
     }
 
 }
