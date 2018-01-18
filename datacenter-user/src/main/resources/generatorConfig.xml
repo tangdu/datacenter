@@ -56,7 +56,7 @@
                              stateCodePackage="${stateCodePackage}"
         ></javaFacadeGenerator>
 
-        <table tableName="t_user_favorite">
+        <table tableName="%">
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
             <domainObjectRenamingRule searchString="^T" replaceString="" />
         </table>

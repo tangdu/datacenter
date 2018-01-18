@@ -1,65 +1,76 @@
+/**
+* xnh.com Inc.
+* Copyright (c) 2017-2018 All Rights Reserved.
+*/
 package cn.xnh.datacenter.user.facade.service;
 
 import cn.luban.commons.result.Result;
 import cn.luban.commons.ro.PageData;
 import cn.xnh.datacenter.user.model.UserDO;
-import cn.xnh.datacenter.user.model.user.UserDelBatDO;
+import cn.xnh.datacenter.user.model.user.UserBatDelDO;
 import cn.xnh.datacenter.user.model.user.UserDelDO;
 import cn.xnh.datacenter.user.model.user.UserPageQueryDO;
 
 /**
- * 用户基础服务提供方
- *
+ * 用户登陆信息服务消费者
+ * 
  * @author tangdu
- * @version $: UserFacade.java, v 0.1 2018年01月11日 下午9:30 tangdu Exp $
+ * @version $: UserFacade.java, v 0.1 2018年01月18日 下午18:12 tangdu Exp $ 
  */
 public interface UserFacade {
-
     /**
-     * 根据用户ID查询用户信息
-     *
-     * @param userId 用户ID
-     * @return
+     * 根据ID查询用户登陆信信息
+	 * 
+	 * @param userId 用户登陆信ID
+	 * @return 用户登陆信信息
      */
     Result<UserDO> queryUserById(Long userId);
 
     /**
-     * 根据用户ID删除用户信息
-     *
-     * @param userDelDO 用户删除对象
-     * @return
+     * 分页查询用户登陆信信息
+	 * 
+	 * @param userPageQueryDO 用户登陆信信息
+	 * @return 用户登陆信分页结果
+     */
+    Result<PageData<UserDO>> pageUserQuery(UserPageQueryDO userPageQueryDO);
+
+    /**
+     * 添加用户登陆信信息
+	 * 
+	 * @param user 用户登陆信信息
+	 * @return 用户登陆信信息
+     */
+    Result<Long> addUser(UserDO user);
+
+    /**
+     * 更新用户登陆信信息
+	 * 
+	 * @param user 用户登陆信更新信息
+	 * @return 成功或失败
+     */
+    Result<Boolean> updateUserById(UserDO user);
+
+    /**
+     * 选择更新用户登陆信信息
+	 * 
+	 * @param user 用户登陆信更新信息
+	 * @return 成功或失败
+     */
+    Result<Boolean> updateUserByParams(UserDO user);
+
+    /**
+     * 根据ID删除用户登陆信信息
+	 * 
+	 * @param userDelDO 用户登陆信删除对象
+	 * @return 成功或失败
      */
     Result<Boolean> deleteUserById(UserDelDO userDelDO);
 
     /**
-     * 根据用户ID批量删除用户信息
-     *
-     * @param userDelBatDO 用户删除对象
-     * @return
+     * 根据ID批量删除用户登陆信信息
+	 * 
+	 * @param userBatDelDO 用户登陆信删除对象
+	 * @return 成功或失败
      */
-    Result<Boolean> batchDeleteUserById(UserDelBatDO userDelBatDO);
-
-    /**
-     * 添加用户信息
-     *
-     * @param userDO 用户信息
-     * @return 返回用户ID
-     */
-    Result<Long> addUser(UserDO userDO);
-
-    /**
-     * 更新用户信息
-     *
-     * @param userDO 用户信息
-     * @return 返回成功标志
-     */
-    Result<Boolean> updateUser(UserDO userDO);
-
-    /**
-     * 分页查询用户信息
-     *
-     * @param userPageQueryDO 分页查询用户对象
-     * @return
-     */
-    Result<PageData<UserDO>> pageQueryUser(UserPageQueryDO userPageQueryDO);
+    Result<Boolean> batchDeleteUserById(UserBatDelDO userBatDelDO);
 }

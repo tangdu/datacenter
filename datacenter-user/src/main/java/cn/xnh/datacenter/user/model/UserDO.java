@@ -12,19 +12,16 @@ import lombok.Setter;
 import java.util.Date;
 
 /**
- * (t_user)
+ * 用户登陆信息(t_user)
  * 
  * @author tangdu
- * @version $: User.java, v 0.1 2018年01月12日 下午13:10 tangdu Exp $ 
+ * @version $: User.java, v 0.1 2018年01月18日 下午18:12 tangdu Exp $ 
  */
 @Setter
 @Getter
 public class UserDO extends BaseDO {
     /****/
     private Long id;
-
-    /**删除状态 0 正常 1 删除**/
-    private Integer isDelete;
 
     /**手机，同时作为登陆id**/
     private Long mobilePhone;

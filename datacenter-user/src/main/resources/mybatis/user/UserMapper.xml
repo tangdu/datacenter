@@ -1,95 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.xnh.datacenter.user.mapper.UserMapper">
-
-
-    <!--ResultMap-->
-    <resultMap id="BaseResultMap" type="cn.xnh.datacenter.user.model.UserDO">
-        <id column="id" property="id"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="create_person" property="createPerson"/>
-        <result column="update_person" property="updatePerson"/>
-        <result column="is_delete" property="isDelete"/>
-        <result column="mobile_phone" property="mobilePhone"/>
-        <result column="email" property="email"/>
-        <result column="passwd" property="passwd"/>
-        <result column="status" property="status"/>
-        <result column="openid_weixin" property="openidWeixin"/>
-        <result column="last_login" property="lastLogin"/>
-        <result column="certification" property="certification"/>
-    </resultMap>
-
-
-    <!--基础列-->
-    <sql id="Base_Column_List">
-    id, create_time, update_time, create_person, update_person, is_delete, mobile_phone, 
-    email, passwd, status, openid_weixin, last_login, certification
+  
+  
+  <!--ResultMap-->
+  <resultMap id="BaseResultMap" type="cn.xnh.datacenter.user.model.UserDO">
+    <id column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="create_person" property="createPerson" />
+    <result column="update_person" property="updatePerson" />
+    <result column="mobile_phone" property="mobilePhone" />
+    <result column="email" property="email" />
+    <result column="passwd" property="passwd" />
+    <result column="status" property="status" />
+    <result column="openid_weixin" property="openidWeixin" />
+    <result column="last_login" property="lastLogin" />
+    <result column="certification" property="certification" />
+  </resultMap>
+  
+  
+  <!--基础列-->
+  <sql id="Base_Column_List">
+    id, create_time, update_time, create_person, update_person, mobile_phone, email, 
+    passwd, status, openid_weixin, last_login, certification
   </sql>
-
-
-    <!--根据ID删除-->
-    <delete id="deleteById" parameterType="cn.xnh.datacenter.user.model.user.UserDelDO">
-    update  t_user set is_delete=1,update_time=now(),update_person=#{updatePerson} where id = #{id} and is_delete=0
+  
+  
+  <!--根据ID物理删除-->
+  <delete id="deleteRow" parameterType="java.lang.Long">
+    delete from t_user
+    where id = #{id}
   </delete>
-
-    <!--根据ID批量删除-->
-    <delete id="batchDeleteById" parameterType="cn.xnh.datacenter.user.model.user.UserDelBatDO">
-        update t_user set is_delete=1,update_time=now(),update_person=#{updatePerson}
-        <where>
-            id in
-            <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-            and is_delete=0
-        </where>
-    </delete>
-
-    <!--添加-->
-    <insert id="add" parameterType="cn.xnh.datacenter.user.model.UserDO">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into t_user (create_time, update_time, create_person, update_person, is_delete,
-        mobile_phone, email, passwd, status, openid_weixin, last_login,
-        certification)
-        values (now(), now(), #{createPerson}, #{updatePerson}, 0,
-        #{mobilePhone}, #{email}, #{passwd}, #{status}, #{openidWeixin}, #{lastLogin},
-        #{certification})
-    </insert>
-
-
-    <!--根据ID查询-->
-    <select id="queryById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_user
-        where is_delete =0 and id = #{id}
-    </select>
-
-
-    <!--根据参数分页查询-->
-    <select id="queryPage" resultMap="BaseResultMap" parameterType="cn.xnh.datacenter.user.model.user.UserPageQueryDO">
-        select
-        <include refid="Base_Column_List"/>
-        from t_user
-        <where>
-            is_delete =0
-            <if test="status != null">
-                and status = #{status}
-            </if>
-        </where>
-    </select>
-
-
-    <!--根据ID更新-->
-    <update id="updateById" parameterType="cn.xnh.datacenter.user.model.UserDO">
+  
+  
+  <!--根据ID逻辑删除-->
+  <update id="deleteById" parameterType="cn.xnh.datacenter.user.model.user.UserDelDO">
+    update t_user set is_delete = 1,update_person = #{updatePerson} 
+    where id = #{id}
+  </update>
+  
+  
+  <!--根据ID批量逻辑删除-->
+  <update id="batchDeleteById" parameterType="cn.xnh.datacenter.user.model.user.UserBatDelDO">
+    update  t_user set is_delete = 1,update_person = #{updatePerson} 
+    <where>
+      	and id in
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+    </where>
+  </update>
+  
+  
+  <!--添加-->
+  <insert id="add" parameterType="cn.xnh.datacenter.user.model.UserDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user (create_time, update_time, create_person, update_person, mobile_phone, 
+      email, passwd, status, openid_weixin, last_login, certification
+      )
+    values (#{createTime}, #{updateTime}, #{createPerson}, #{updatePerson}, #{mobilePhone}, 
+      #{email}, #{passwd}, #{status}, #{openidWeixin}, #{lastLogin}, #{certification}
+      )
+  </insert>
+  
+  
+  <!--根据ID查询-->
+  <select id="queryById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" /> from t_user
+    where is_delete=0 and id = #{id}
+  </select>
+  
+  
+  <!--根据参数分页查询-->
+  <select id="queryPage" parameterType="cn.xnh.datacenter.user.model.user.UserPageQueryDO" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" /> from t_user
+    <where>
+      is_delete=0 
+      <if test="createTime != null">
+         and create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+         and update_time = #{updateTime},
+      </if>
+      <if test="createPerson != null">
+         and create_person = #{createPerson},
+      </if>
+      <if test="updatePerson != null">
+         and update_person = #{updatePerson},
+      </if>
+      <if test="mobilePhone != null">
+         and mobile_phone = #{mobilePhone},
+      </if>
+      <if test="email != null">
+         and email = #{email},
+      </if>
+      <if test="passwd != null">
+         and passwd = #{passwd},
+      </if>
+      <if test="status != null">
+         and status = #{status},
+      </if>
+      <if test="openidWeixin != null">
+         and openid_weixin = #{openidWeixin},
+      </if>
+      <if test="lastLogin != null">
+         and last_login = #{lastLogin},
+      </if>
+      <if test="certification != null">
+         and certification = #{certification},
+      </if>
+    </where>
+  </select>
+  
+  
+  <!--根据ID更新-->
+  <update id="updateById" parameterType="cn.xnh.datacenter.user.model.UserDO">
     update t_user
     set create_time = #{createTime},
-      update_time = now(),
+      update_time = #{updateTime},
       create_person = #{createPerson},
       update_person = #{updatePerson},
-      is_delete = #{isDelete},
       mobile_phone = #{mobilePhone},
       email = #{email},
       passwd = #{passwd},
@@ -99,50 +132,48 @@
       certification = #{certification}
     where id = #{id}
   </update>
-
-
-    <!--根据ID选择性更新-->
-    <update id="updateByParams" parameterType="cn.xnh.datacenter.user.model.UserDO">
-        update t_user
-        <set>
-            <if test="createTime != null">
-                create_time = #{createTime},
-            </if>
-            update_time = now(),
-
-            <if test="createPerson != null">
-                create_person = #{createPerson},
-            </if>
-            <if test="updatePerson != null">
-                update_person = #{updatePerson},
-            </if>
-            <if test="isDelete != null">
-                is_delete = #{isDelete},
-            </if>
-            <if test="mobilePhone != null">
-                mobile_phone = #{mobilePhone},
-            </if>
-            <if test="email != null">
-                email = #{email},
-            </if>
-            <if test="passwd != null">
-                passwd = #{passwd},
-            </if>
-            <if test="status != null">
-                status = #{status},
-            </if>
-            <if test="openidWeixin != null">
-                openid_weixin = #{openidWeixin},
-            </if>
-            <if test="lastLogin != null">
-                last_login = #{lastLogin},
-            </if>
-            <if test="certification != null">
-                certification = #{certification},
-            </if>
-        </set>
-        where id = #{id}
-    </update>
-
-
+  
+  
+  <!--根据ID选择性更新-->
+  <update id="updateByParams" parameterType="cn.xnh.datacenter.user.model.UserDO">
+    update t_user
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+      <if test="createPerson != null">
+        create_person = #{createPerson},
+      </if>
+      <if test="updatePerson != null">
+        update_person = #{updatePerson},
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone = #{mobilePhone},
+      </if>
+      <if test="email != null">
+        email = #{email},
+      </if>
+      <if test="passwd != null">
+        passwd = #{passwd},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="openidWeixin != null">
+        openid_weixin = #{openidWeixin},
+      </if>
+      <if test="lastLogin != null">
+        last_login = #{lastLogin},
+      </if>
+      <if test="certification != null">
+        certification = #{certification},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  
+  
 </mapper>

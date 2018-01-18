@@ -10,19 +10,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * (t_user_address)
+ * 用户收货地址(t_user_address)
  * 
  * @author tangdu
- * @version $: UserAddress.java, v 0.1 2018年01月12日 下午13:10 tangdu Exp $ 
+ * @version $: UserAddress.java, v 0.1 2018年01月18日 下午18:12 tangdu Exp $ 
  */
 @Setter
 @Getter
 public class UserAddressDO extends BaseDO {
     /****/
     private Long id;
-
-    /**删除状态 0 正常 1 删除**/
-    private Integer isDelete;
 
     /**省**/
     private String province;

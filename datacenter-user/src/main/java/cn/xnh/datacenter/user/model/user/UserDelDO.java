@@ -1,21 +1,28 @@
+/**
+* xnh.com Inc.
+* Copyright (c) 2017-2018 All Rights Reserved.
+*/
 package cn.xnh.datacenter.user.model.user;
 
 import cn.luban.commons.validate.Validate;
-import lombok.Data;
-
 import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * 用户删除对象
- *
+ * 用户登陆信息操作DO
+ * 
  * @author tangdu
- * @version $: UserDelRO.java, v 0.1 2018年01月17日 下午5:22 tangdu Exp $
+ * @version $: UserDelDO.java, v 0.1 2018年01月18日 下午18:12 tangdu Exp $ 
  */
-@Data
+@Setter
+@Getter
 public class UserDelDO implements Serializable {
+    /** 用户登陆信息Id **/
     @Validate(required = true)
     private Long id;
 
+    /** 变更人 **/
     @Validate(isNotBlank = true)
     private String updatePerson;
 }

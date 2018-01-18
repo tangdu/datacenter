@@ -10,19 +10,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * (t_user_info)
+ * 用户信息(t_user_info)
  * 
  * @author tangdu
- * @version $: UserInfo.java, v 0.1 2018年01月12日 下午13:10 tangdu Exp $ 
+ * @version $: UserInfo.java, v 0.1 2018年01月18日 下午18:12 tangdu Exp $ 
  */
 @Setter
 @Getter
 public class UserInfoDO extends BaseDO {
     /****/
     private Long id;
-
-    /**删除状态 0 正常 1 删除**/
-    private Integer isDelete;
 
     /**性别 0 保密 1 女性 2 男性**/
     private Integer sex;
