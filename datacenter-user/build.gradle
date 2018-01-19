@@ -1,5 +1,6 @@
 apply plugin: "maven-publish"
 ext.set("generate_package", "cn.xnh.datacenter.user")
+ext.set("model_prefix","")
 version '1.0.1'
 
 dependencies {
@@ -30,8 +31,8 @@ dependencies {
 /********************************Facade打包**********************************************/
 def base_facade='cn/xnh/datacenter/user';
 def facade_paths=[
-        "${base_facade}/model/**",
         "${base_facade}/facade/service/**",
+        "${base_facade}/facade/ro/**",
         "${base_facade}/facade/statecode/**"]
 task facadeJar(type: Jar) {
     archiveName = "${project.name}-${version}.jar".toString()

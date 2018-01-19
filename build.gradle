@@ -38,6 +38,7 @@ subprojects{
 
     ext{
         generate_package=""
+        model_prefix=""
     }
 
     configurations {
@@ -62,7 +63,7 @@ subprojects{
                 "cn.luban:luban-plugin:${luban_plugin_version}",
         )
         mybatisGenerator "org.mybatis.generator:mybatis-generator-maven-plugin:${mybatis_generator_version}"
-        mybatisGenerator "cn.xnh.mybatis.generator:mybatis-generator-core:${mybatis_generator_version}"
+        mybatisGenerator "cn.tdu.generator:mybatis-generator-core:${mybatis_generator_version}"
         mybatisGenerator "mysql:mysql-connector-java"
     }
 
@@ -76,49 +77,69 @@ subprojects{
     }
 
 
-    task mybatisGenerate << {
-        def properties = getDbProperties()
-        ant.properties['targetProject'] = projectDir.path
-        ant.properties['driverClass'] = 'com.mysql.jdbc.Driver'
-        ant.properties['connectionURL'] = properties.getProperty("spring.datasource.url")
-        ant.properties['userId'] = properties.getProperty("spring.datasource.username")
-        ant.properties['password'] = properties.getProperty("spring.datasource.password")
-        ant.properties['src_main_java'] = sourceSets.main.java.srcDirs[0].path
-        ant.properties['src_main_resources'] = sourceSets.main.resources.srcDirs[0].path
-        //ant.properties['src_main_java'] = "${projectDir}/src/main/java".toString()
-        //ant.properties['src_main_resources'] = "${projectDir}/src/main/resources".toString()
+    task mybatisGenerate  {
+        doLast {
+            def properties = getDbProperties()
+            ant.properties['targetProject'] = projectDir.path
+            ant.properties['driverClass'] = 'com.mysql.jdbc.Driver'
+            ant.properties['connectionURL'] = properties.getProperty("spring.datasource.url")
+            ant.properties['userId'] = properties.getProperty("spring.datasource.username")
+            ant.properties['password'] = properties.getProperty("spring.datasource.password")
+            ant.properties['src_main_java'] = sourceSets.main.java.srcDirs[0].path
+            ant.properties['src_main_resources'] = sourceSets.main.resources.srcDirs[0].path
+            //ant.properties['src_main_java'] = "${projectDir}/src/main/java".toString()
+            //ant.properties['src_main_resources'] = "${projectDir}/src/main/resources".toString()
 
-        def generate_package_dir="${generate_package}"
-        if(generate_package_dir==''){
-            println "----->default_src未设置"
-            return ;
-        }
-        println "----->正在此目录:【${ant.properties['src_main_java']}】生成....相应包文件为【${generate_package_dir}】"
-        ant.properties['modelPackage'] ="${generate_package_dir}.model".toString()
-        ant.properties['mapperPackage'] ="${generate_package_dir}.mapper".toString()
-        ant.properties['sqlMapperPackage'] = 'mybatis.user'.toString()
-        ant.properties['servicePackage'] = "${generate_package_dir}.service".toString()
-        ant.properties['serviceImplPackage'] = "${generate_package_dir}.service.impl".toString()
-        ant.taskdef(
-                name: 'mbgenerator',
-                classname: 'org.mybatis.generator.ant.GeneratorAntTask',
-                classpath: configurations.mybatisGenerator.asPath
-        )
-        ant.mbgenerator(overwrite: true,
-                configfile: "${ant.properties['src_main_resources']}/generatorConfig.xml", verbose: true) {
-            propertyset {
-                propertyref(name: 'targetProject')
-                propertyref(name: 'userId')
-                propertyref(name: 'driverClass')
-                propertyref(name: 'connectionURL')
-                propertyref(name: 'password')
-                propertyref(name: 'src_main_java')
-                propertyref(name: 'src_main_resources')
-                propertyref(name: 'modelPackage')
-                propertyref(name: 'mapperPackage')
-                propertyref(name: 'sqlMapperPackage')
-                propertyref(name: 'servicePackage')
-                propertyref(name: 'serviceImplPackage')
+            def generate_package_dir="${generate_package}"
+            if(generate_package_dir==''){
+                println "#######default_src未设置"
+                return ;
+            }
+            def modelPackage="${generate_package_dir}.model";
+            if("${model_prefix}"!=''){
+                modelPackage="${generate_package_dir}.model.${model_prefix}"
+            }
+            println """
+                    通用层代码生成工具@tdu
+                    Java路径:【${ant.properties['src_main_java']}】
+                         此包目录为:【${generate_package_dir}】
+                         模型目录为:【${modelPackage}】
+                    XML 路径:【${ ant.properties['src_main_resources']}】
+                    """
+            ant.properties['modelPackage'] ="${modelPackage}".toString()
+            ant.properties['mapperPackage'] ="${generate_package_dir}.mapper".toString()
+            ant.properties['sqlMapperPackage'] = 'mybatis.user'.toString()
+            ant.properties['servicePackage'] = "${generate_package_dir}.service".toString()
+            ant.properties['serviceImplPackage'] = "${generate_package_dir}.service.impl".toString()
+            ant.properties['facadePackage'] = "${generate_package_dir}.facade.service".toString()
+            ant.properties['facadeImplPackage'] = "${generate_package_dir}.facade.impl".toString()
+            ant.properties['stateCodePackage'] = "${generate_package_dir}.facade.statecode".toString()
+            ant.properties['facadeRoPackage'] = "${generate_package_dir}.facade.ro".toString()
+            ant.taskdef(
+                    name: 'mbgenerator',
+                    classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+                    classpath: configurations.mybatisGenerator.asPath
+            )
+            ant.mbgenerator(overwrite: false,
+                    configfile: "${ant.properties['src_main_resources']}/generatorConfig.xml", verbose: true) {
+                propertyset {
+                    propertyref(name: 'targetProject')
+                    propertyref(name: 'userId')
+                    propertyref(name: 'driverClass')
+                    propertyref(name: 'connectionURL')
+                    propertyref(name: 'password')
+                    propertyref(name: 'src_main_java')
+                    propertyref(name: 'src_main_resources')
+                    propertyref(name: 'modelPackage')
+                    propertyref(name: 'mapperPackage')
+                    propertyref(name: 'sqlMapperPackage')
+                    propertyref(name: 'servicePackage')
+                    propertyref(name: 'serviceImplPackage')
+                    propertyref(name: 'facadePackage')
+                    propertyref(name: 'facadeImplPackage')
+                    propertyref(name: 'facadeRoPackage')
+                    propertyref(name: 'stateCodePackage')
+                }
             }
         }
     }

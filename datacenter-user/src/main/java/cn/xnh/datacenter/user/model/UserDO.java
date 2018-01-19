@@ -6,25 +6,19 @@ package cn.xnh.datacenter.user.model;
 
 import cn.luban.commons.model.BaseDO;
 import com.alibaba.fastjson.JSON;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Date;
+import lombok.Data;
 
 /**
- * (t_user)
+ * 用户登陆信息(t_user)
  * 
  * @author tangdu
- * @version $: User.java, v 0.1 2018年01月12日 下午13:10 tangdu Exp $ 
+ * @version $: UserDO.java, v 0.1 2018年01月19日 下午13:37 tangdu Exp $ 
  */
-@Setter
-@Getter
+@Data
 public class UserDO extends BaseDO {
     /****/
     private Long id;
-
-    /**删除状态 0 正常 1 删除**/
-    private Integer isDelete;
 
     /**手机，同时作为登陆id**/
     private Long mobilePhone;

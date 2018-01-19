@@ -7,6 +7,12 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
+/**
+ * 用户接口测试入口
+ *
+ * @author tangdu
+ * @version $: UserTestApplication.java, v 0.1 2018年01月17日 上午7:24 tangdu Exp $
+ */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @ImportResource(locations = {
         "classpath:dubbo/dubbo*.xml"
