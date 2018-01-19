@@ -13,5 +13,4 @@
 	<dubbo:service
 		interface="cn.xnh.datacenter.user.facade.service.UserFacade"
 		ref="userFacade" version="1.0.0" delay="-1" protocol="dubbo"/>
-	
 </beans>
