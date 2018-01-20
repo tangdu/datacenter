@@ -32,8 +32,8 @@ subprojects{
     targetCompatibility = 1.8
 
     repositories {
-        maven { url MAVEN_RELEASE_REPOURL }
-        mavenCentral()
+        maven { url "${XNH_MAVEN_REPOURL}" }
+        maven { url "${ALY_MAVEN_REPOURL}" }
     }
 
     ext{
@@ -50,13 +50,14 @@ subprojects{
     dependencies {
         testCompile("org.springframework.boot:spring-boot-starter-test")
         compile(
+                "org.springframework.boot:spring-boot-starter-undertow",
                 "org.springframework.boot:spring-boot-starter",
                 "org.projectlombok:lombok:${lombok_version}",
                 "com.google.guava:guava:${guava_version}",
+                "com.alibaba:fastjson:${fastjson_version}",
+                "com.esotericsoftware:kryo:4.0.1",
+                "de.javakaffee:kryo-serializers:0.41",
                 "junit:junit:${junit_version}",
-        )
-        compile(
-                "org.springframework.boot:spring-boot-starter-undertow",
         )
         compile(
                 "cn.luban:luban-commons:${luban_commons_version}",
@@ -75,7 +76,6 @@ subprojects{
         }
         properties
     }
-
 
     task mybatisGenerate  {
         doLast {

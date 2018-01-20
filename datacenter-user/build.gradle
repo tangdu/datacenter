@@ -20,7 +20,6 @@ dependencies {
             "com.alibaba:druid-spring-boot-starter:${druid_version}"
     )
     compile(
-            "org.springframework.boot:spring-boot-starter-data-redis",
             "org.mybatis.spring.boot:mybatis-spring-boot-starter:${springboot_mybatis_version}",
             "com.github.pagehelper:pagehelper-spring-boot-starter:1.2.3",
             "com.dangdang:elastic-job-lite-core:${elasticJob_version}",
@@ -69,10 +68,10 @@ publishing {
     }
     repositories {
         maven {
-            url  MAVEN_RELEASE_REPOURL
+            url  XNH_MAVEN_REPOURL
             credentials {
                 username = 'xnh'
-                password = 'xnh123'
+                    password = 'xnh123'
             }
         }
     }

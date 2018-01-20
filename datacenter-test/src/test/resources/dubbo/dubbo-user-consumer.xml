@@ -9,7 +9,7 @@
     <dubbo:application name="${spring.application.name}" owner="platform"/>
     <dubbo:registry protocol="zookeeper" address="${spring.dubbo.registry.address}"
                     timeout="${spring.dubbo.registry.timeout}"/>
-    <dubbo:protocol name="dubbo" port="${spring.dubbo.protocol.port}"/>
+    <dubbo:protocol name="dubbo" port="${spring.dubbo.protocol.port}" serialization="kryo"/>
 
     <dubbo:reference id="userFacade"
                      interface="cn.xnh.datacenter.user.facade.service.UserFacade"
